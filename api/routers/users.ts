@@ -12,6 +12,20 @@ import User from "../models/User";
 const usersRouter = express.Router();
 const client = new OAuth2Client(config.google.clientId);
 
+usersRouter.get('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id, 'displayName');
+
+    if (!user) {
+      res.sendStatus(404);
+    }
+
+    return res.send(user);
+  } catch (e) {
+    return next(e);
+  }
+});
+
 usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
   try {
     const user = new User({

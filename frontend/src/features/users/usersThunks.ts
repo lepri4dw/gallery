@@ -1,5 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { GlobalError, LoginMutation, RegisterMutation, RegisterResponse, User, ValidationError } from '../../types';
+import {
+  GlobalError,
+  LoginMutation,
+  RegisterMutation,
+  RegisterResponse,
+  User,
+  UserName,
+  ValidationError
+} from '../../types';
 import axiosApi from '../../axiosApi';
 import { isAxiosError } from 'axios';
 import { RootState } from '../../app/store';
@@ -27,6 +35,14 @@ export const register = createAsyncThunk<User, RegisterMutation, {rejectValue: V
       throw e;
     }
 
+  }
+);
+
+export const fetchUser = createAsyncThunk<UserName, string>(
+  'users/fetchOne',
+  async (id) => {
+    const response = await axiosApi.get('/users/' + id);
+    return response.data;
   }
 );
 

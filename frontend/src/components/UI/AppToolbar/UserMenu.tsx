@@ -6,6 +6,7 @@ import { logout } from '../../../features/users/usersThunks';
 import {selectLogoutLoading} from "../../../features/users/usersSlice";
 import {apiURL} from "../../../constants";
 import noAvatarAvailable from '../../../assets/images/noAvatarAvailable.jpg';
+import {NavLink} from "react-router-dom";
 
 interface Props {
   user: User;
@@ -49,7 +50,8 @@ const UserMenu: React.FC<Props> = ({user}) => {
         onClose={handleClose}
       >
         <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
+        <MenuItem component={NavLink} to={"/users/" + user._id}>My photos</MenuItem>
+        <MenuItem component={NavLink} to="/new-photo">Add new photo</MenuItem>
         <MenuItem onClick={handleLogout} disabled={logoutLoading}>{logoutLoading && <CircularProgress size={20} sx={{mr: 1}}/>}Logout</MenuItem>
       </Menu>
     </>

@@ -1,10 +1,12 @@
-import { GlobalError, User, ValidationError } from '../../types';
+import {GlobalError, User, UserName, ValidationError} from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import {googleLogin, login, logout, register} from './usersThunks';
+import {fetchUser, googleLogin, login, logout, register} from './usersThunks';
 
 interface UsersState {
   user: User | null;
+  username: UserName | null;
+  fetchUsernameLoading: boolean;
   registerLoading: boolean;
   registerError: ValidationError | null;
   loginLoading: boolean;
@@ -14,6 +16,8 @@ interface UsersState {
 
 const initialState: UsersState = {
   user: null,
+  username: null,
+  fetchUsernameLoading: false,
   registerLoading: false,
   registerError: null,
   loginLoading: false,
@@ -41,6 +45,17 @@ export const usersSlice = createSlice({
     builder.addCase(register.rejected, (state, {payload: error}) => {
       state.registerLoading = false;
       state.registerError = error || null;
+    });
+
+    builder.addCase(fetchUser.pending, (state) => {
+      state.fetchUsernameLoading = true;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, {payload: username}) => {
+      state.fetchUsernameLoading = false;
+      state.username = username;
+    });
+    builder.addCase(fetchUser.rejected, (state) => {
+      state.fetchUsernameLoading = false;
     });
 
     builder.addCase(login.pending, (state) => {
@@ -85,6 +100,8 @@ export const usersReducer = usersSlice.reducer;
 export const {unsetUser} = usersSlice.actions;
 
 export const selectUser = (state: RootState) => state.users.user;
+export const selectUsername = (state: RootState) => state.users.username;
+export const selectUsernameFetching = (state: RootState) => state.users.fetchUsernameLoading;
 export const selectRegisterLoading = (state: RootState) => state.users.registerLoading;
 export const selectRegisterError = (state: RootState) => state.users.registerError;
 export const selectLoginLoading = (state: RootState) => state.users.loginLoading;

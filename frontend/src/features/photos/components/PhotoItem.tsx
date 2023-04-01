@@ -51,9 +51,10 @@ const PhotoItem: React.FC<Props> = ({title, image, user, _id, isMainPage}) => {
           <CardContent>
             <Typography variant="h6" onClick={handleClose} style={{textDecoration: 'underline', color: 'blue'}}>{title}</Typography>
             {isMainPage && <Typography variant="h6">By user: <Link to={'/users/' + user._id}>{user.displayName}</Link></Typography>}
-            {existingUser && existingUser.role === 'admin' &&
+            {isMainPage ? existingUser && existingUser.role === 'admin' &&
               <LoadingButton onClick={() => deleteHandler()} sx={{mt: 2}} loadingIndicator="Loading…" loading={deleteLoading ? deleteLoading === _id : false} color="error" variant="contained">Delete</LoadingButton>
-            }
+             : (existingUser && (existingUser.role === 'admin' || existingUser._id === user._id)) &&
+              <LoadingButton onClick={() => deleteHandler()} sx={{mt: 2}} loadingIndicator="Loading…" loading={deleteLoading ? deleteLoading === _id : false} color="error" variant="contained">Delete</LoadingButton>}
           </CardContent>
         </Card>
       </Grid>
