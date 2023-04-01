@@ -46,10 +46,13 @@ export interface PhotoMutation {
 }
 
 export interface Photo {
+  _id: string;
   title: string;
-  user: {
-    _id: string;
-    displayName: string;
-  };
+  user: UserName;
   image: string;
+}
+
+export interface UserName {
+  _id: string;
+  displayName: string;
 }

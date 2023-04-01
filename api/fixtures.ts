@@ -62,7 +62,7 @@ const run = async () => {
   }, {
     title: 'Rainbow',
     user: Artem._id,
-    image: 'fixtures/rainbow.jpeg',
+    image: 'fixtures/rainbow.webp',
   }, {
     title: 'Mountain river',
     user: David._id,

@@ -4,6 +4,7 @@ import {Container, CssBaseline} from "@mui/material";
 import {Route, Routes} from "react-router-dom";
 import Register from "./features/users/Register";
 import Login from "./features/users/Login";
+import Gallery from "./features/photos/Gallery";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/register" element={<Register/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/" element={<Gallery/>}/>
             <Route path="/*" element={<h1>Not Found! This page does not exist!</h1>}/>
           </Routes>
         </Container>
