@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectPhotos, selectPhotosFetching} from "./photosSlice";
 import {fetchPhotos} from "./photosThunks";
-import {CircularProgress, Grid, Typography} from "@mui/material";
+import {Alert, CircularProgress, Grid, Typography} from "@mui/material";
 import PhotoItem from "./components/PhotoItem";
 
 const Gallery = () => {
@@ -20,6 +20,7 @@ const Gallery = () => {
           All Photos
         </Typography>
       </Grid>
+      {photos.length === 0 && <Alert sx={{mt: 3}} severity="warning" variant="filled">Here are no photos yet!</Alert>}
       {loading ? <CircularProgress/> : <Grid item container spacing={2}>
         {photos.map(photo => (
           <PhotoItem key={photo._id} _id={photo._id} title={photo.title} image={photo.image} user={photo.user} isMainPage/>

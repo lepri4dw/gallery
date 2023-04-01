@@ -37,7 +37,7 @@ const PhotosByUser = () => {
             </Grid>
           }
         </Grid>
-        {photos.length === 0 && <Alert sx={{mt: 3}} severity="warning" variant="filled">Here are no photos yet, please add some!</Alert>}
+        {photos.length === 0 && <Alert sx={{mt: 3}} severity="warning" variant="filled">Here are no photos yet!</Alert>}
         <Grid item container spacing={2}>
           {photos.map(photo => (
             <PhotoItem key={photo._id} _id={photo._id} title={photo.title} image={photo.image} user={photo.user}/>
